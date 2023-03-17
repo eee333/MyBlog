@@ -12,7 +12,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
-        return self.title
+        return f'{self.title} ({self.author})'
 
     class Meta:
         verbose_name = "Пост"
