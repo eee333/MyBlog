@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from comments.models import Comment
+from comments.models import Post
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Comment
+        model = Post
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
