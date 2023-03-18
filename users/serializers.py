@@ -12,8 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(required=False)
+    email = serializers.EmailField(required=False)
 
     class Meta:
         model = User
-        fields = ('phone', 'first_name', 'last_name')
+        fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
