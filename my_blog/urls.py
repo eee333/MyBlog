@@ -8,4 +8,5 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view()),
     path('', include('comments.urls')),
     path('', include('posts.urls')),
+    path('', include('users.urls')),
 ]
