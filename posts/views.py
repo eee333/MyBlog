@@ -16,3 +16,7 @@ class PostViewSet(ModelViewSet):
         elif self.action == 'create':
             self.permission_classes = [IsAuthenticated]
         return super(self.__class__, self).get_permissions()
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
