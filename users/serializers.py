@@ -13,8 +13,15 @@ class PasswordValidator:
             raise serializers.ValidationError('Пароль должен быть не менее 8 символов, должен включать цифры!')
 
 
+class EmailValidator:
+    def __call__(self, value):
+        if not ('@mail.ru' in value or '@yandex.ru' in value):
+            raise serializers.ValidationError('Разрешены домены: mail.ru, yandex.ru')
+
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(validators=[PasswordValidator()])
+    email = serializers.EmailField(validators=[EmailValidator()])
 
     class Meta:
         model = User
@@ -30,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(required=False, validators=[PasswordValidator()])
-    email = serializers.EmailField(required=False)
+    email = serializers.EmailField(required=False, validators=[EmailValidator])
 
     class Meta:
         model = User
