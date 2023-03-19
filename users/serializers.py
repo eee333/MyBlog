@@ -10,6 +10,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
 
+    def create(self, validated_data):
+        user = super().create(validated_data)
+        user.set_password(user.password)
+        user.save()
+        return user
+
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(required=False)
@@ -19,3 +25,12 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            user = super().update(instance, validated_data)
+            user.set_password(user.password)
+            user.save()
+            return user
+
+        return super().update(instance, validated_data)
