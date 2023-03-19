@@ -9,7 +9,8 @@ from users.models import User
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("password",)}),
-        ("Personal info", {"fields": ("first_name", "last_name", "email")}),
+        ("Personal info", {"fields": ("email", "first_name", "last_name", "phone")}),
+        ("Important dates", {"fields": ("birthday", "last_login", "date_joined")}),
         (
             "Permissions",
             {
@@ -22,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
                 ),
             },
         ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
+
     )
     add_fieldsets = (
         (
