@@ -5,8 +5,16 @@ from rest_framework import serializers
 from comments.models import Post
 
 
+class TextValidator:
+    def __call__(self, value):
+        blocked_words = ['ерунда', 'глупость', 'чепуха']
+        for word in blocked_words:
+            if word in value.lower():
+                raise serializers.ValidationError('Запрещенные слова: ерунда, глупость, чепуха')
+
+
 class PostSerializer(serializers.ModelSerializer):
-    # author = serializers.PrimaryKeyRelatedField(validators=[AgeValidator()])
+    title = serializers.CharField(validators=[TextValidator()])
 
     def create(self, validated_data):
         if birthday := validated_data['author'].birthday:
